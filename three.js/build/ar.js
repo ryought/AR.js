@@ -26,7 +26,7 @@ var Gc=[QH,PB,TB,NC,RC,WC,YC,QH];var Hc=[RH,yu,xu,uu,Qp,Rp,Tp,Up,Vp,Zq,_q,np,mp,
 
 
 
-(function() {
+;(function() {
 	'use strict'
 
 	/**
