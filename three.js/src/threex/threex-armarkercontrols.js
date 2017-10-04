@@ -10,7 +10,7 @@ THREEx.ArMarkerControls = function(context, object3d, parameters){
 	this.parameters = {
 		// size of the marker in meter
 		size : 1,
-		// type of marker - ['pattern', 'barcode', 'unknown' ]
+		// type of marker - ['pattern', 'barcode', 'unknown', 'nft' ]
 		type : 'unknown',
 		// url of the pattern - IIF type='pattern'
 		patternUrl : null,
@@ -23,7 +23,7 @@ THREEx.ArMarkerControls = function(context, object3d, parameters){
 	}
 
 	// sanity check
-	var possibleValues = ['pattern', 'barcode', 'unknown']
+	var possibleValues = ['pattern', 'barcode', 'unknown', 'nft']
 	console.assert(possibleValues.indexOf(this.parameters.type) !== -1, 'illegal value', this.parameters.type)
 	var possibleValues = ['modelViewMatrix', 'cameraTransformMatrix' ]
 	console.assert(possibleValues.indexOf(this.parameters.changeMatrixMode) !== -1, 'illegal value', this.parameters.changeMatrixMode)
@@ -153,6 +153,9 @@ THREEx.ArMarkerControls.prototype.name = function(){
 		var url = this.parameters.patternUrl
 		var basename = url.replace(/^.*\//g, '')
 		name += ' - ' + basename
+        }else if( this.parameters.type === 'nft' ){
+          // TODO 多分urlとかの追加処理
+
 	}else if( this.parameters.type === 'barcode' ){
 		name += ' - ' + this.parameters.barcodeValue
 	}else{
@@ -192,6 +195,16 @@ THREEx.ArMarkerControls.prototype._initArtoolkit = function(){
 	                arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
 				artoolkitMarkerId = markerId
 	                        arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
+
+                          // TODO change to NFT version   what is track Pattern marker id ?
+                                // var markerRoot = arController.createThreeNFTMarker(markerId);
+                                // markerRoot.add(sphere);
+                                // arScene.scene.add(markerRoot);
+	                });
+                }else if( _this.parameters.type === 'nft' ){  // add for Natural Feature
+	                arController.loadNFTMarker(_this.parameters.patternUrl, function(markerId) {
+				artoolkitMarkerId = markerId
+	                        arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
 	                });
 		}else if( _this.parameters.type === 'barcode' ){
 			artoolkitMarkerId = _this.parameters.barcodeValue
@@ -215,6 +228,16 @@ THREEx.ArMarkerControls.prototype._initArtoolkit = function(){
 				onMarkerFound(event)
 			}
 		})
+                arController.addEventListener('getNFTMarker', function(event){
+                  // TODO
+                  if( _this.parameters.type === 'nft' ){
+                    if( artoolkitMarkerId === null ) return
+                    if( event.data.marker.id  === artoolkitMarkerId ) {
+                      console.log('found nft marker', event.data.marker.id)
+                      onMarkerFound(event)
+                    }
+                  }
+                })
 		
 	}
 
