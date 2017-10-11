@@ -110,7 +110,8 @@
 	scene.add(markerRoot)
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'nft', // TODO NFTにしたい
-		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test'
+                patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test3'
+		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test'
 		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
 		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji'
 	})
@@ -141,24 +142,25 @@
 	}); 
 	var mesh	= new THREE.Mesh( geometry, material );
 	// mesh.position.y	= geometry.parameters.height/2
-	mesh.position.z	= -60;
-        mesh.position.x = 80;
-        mesh.position.y = 80;
-        mesh.scale.set(80,80,80);
+        mesh.position.x = 100; // 右
+        mesh.position.y = 200; // 鉛直上
+	mesh.position.z	= -100; // 下
+        var scale = 300
+        mesh.scale.set(scale, scale, scale);
 	arWorldRoot.add( mesh );
 	
-	var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-	var material	= new THREE.MeshNormalMaterial(); 
-	var mesh	= new THREE.Mesh( geometry, material );
-	mesh.position.z	= -60;
-        mesh.position.x = 80;
-        mesh.position.y = 80;
-        mesh.scale.set(80,80,80);
-	arWorldRoot.add( mesh );
+	//var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
+	//var material	= new THREE.MeshNormalMaterial(); 
+	//var mesh	= new THREE.Mesh( geometry, material );
+	//mesh.position.z	= -60;
+        //mesh.position.x = 80;
+        //mesh.position.y = 200;
+        //mesh.scale.set(80,80,80);
+	//arWorldRoot.add( mesh );
 	
-	onRenderFcts.push(function(){
-		mesh.rotation.x += 0.1
-	})
+	//onRenderFcts.push(function(){
+	//	mesh.rotation.x += 0.1
+	//})
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
