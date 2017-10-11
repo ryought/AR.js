@@ -22,7 +22,7 @@
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	// renderer.setPixelRatio( 1/2 );
+	renderer.setPixelRatio( 1);
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
@@ -173,7 +173,10 @@
 	var stats = new Stats();
 	document.body.appendChild( stats.dom );
 	// render the scene
+        var frame = 0;
 	onRenderFcts.push(function(){
+                frame++;
+                if(frame % 2 == 0) return;
 		renderer.render( scene, camera );
 		stats.update();
 	})
