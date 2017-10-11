@@ -34,6 +34,7 @@
 
 	// init scene and camera
 	var scene	= new THREE.Scene();
+
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Initialize a basic camera
@@ -110,7 +111,8 @@
 	scene.add(markerRoot)
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'nft', // TODO NFTにしたい
-		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test'
+                patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test'
+		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/dataNFT/test'
 		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
 		// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji'
 	})
@@ -132,33 +134,38 @@
 
 	var arWorldRoot = smoothedRoot
 
-	// add a torus knot	
-	var geometry	= new THREE.CubeGeometry(1,1,1);
-	var material	= new THREE.MeshNormalMaterial({
-		transparent : true,
-		opacity: 0.5,
-		side: THREE.DoubleSide
-	}); 
-	var mesh	= new THREE.Mesh( geometry, material );
-	// mesh.position.y	= geometry.parameters.height/2
-	mesh.position.z	= -60;
-        mesh.position.x = 80;
-        mesh.position.y = 80;
-        mesh.scale.set(80,80,80);
-	arWorldRoot.add( mesh );
+	//// add a torus knot	
+	//var geometry	= new THREE.CubeGeometry(1,1,1);
+	//var material	= new THREE.MeshNormalMaterial({
+	//	transparent : true,
+	//	opacity: 0.5,
+	//	side: THREE.DoubleSide
+	//}); 
+	//var mesh	= new THREE.Mesh( geometry, material );
+	//// mesh.position.y	= geometry.parameters.height/2
+        //mesh.position.x = 50; // 右
+        //mesh.position.y = 100; // 鉛直上
+	//mesh.position.z	= 0; // 下
+        //var scale = 80
+        //mesh.scale.set(scale, scale, scale);
+	//arWorldRoot.add( mesh );
+
+        var axis = new THREE.AxisHelper(1000);
+        axis.position.set(0,0,0);
+        arWorldRoot.add(axis);
 	
-	var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-	var material	= new THREE.MeshNormalMaterial(); 
-	var mesh	= new THREE.Mesh( geometry, material );
-	mesh.position.z	= -60;
-        mesh.position.x = 80;
-        mesh.position.y = 80;
-        mesh.scale.set(80,80,80);
-	arWorldRoot.add( mesh );
+	//var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
+	//var material	= new THREE.MeshNormalMaterial(); 
+	//var mesh	= new THREE.Mesh( geometry, material );
+	//mesh.position.z	= -60;
+        //mesh.position.x = 80;
+        //mesh.position.y = 200;
+        //mesh.scale.set(80,80,80);
+	//arWorldRoot.add( mesh );
 	
-	onRenderFcts.push(function(){
-		mesh.rotation.x += 0.1
-	})
+	//onRenderFcts.push(function(){
+	//	mesh.rotation.x += 0.1
+	//})
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
