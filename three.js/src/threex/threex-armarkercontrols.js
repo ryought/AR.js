@@ -96,7 +96,6 @@ THREEx.ArMarkerControls.prototype.dispose = function(){
  * of things. it is done here.
  */
 THREEx.ArMarkerControls.prototype.updateWithModelViewMatrix = function(modelViewMatrix){
-  console.log('in updateWithModelViewMatrix');
 	var markerObject3D = this.object3d;
 
 	// mark object as visible
@@ -135,7 +134,6 @@ THREEx.ArMarkerControls.prototype.updateWithModelViewMatrix = function(modelView
 	markerObject3D.matrix.decompose(markerObject3D.position, markerObject3D.quaternion, markerObject3D.scale)
 
 	// dispatchEvent
-  console.log('markerFound event was despatched');
 	this.dispatchEvent( { type: 'markerFound' } );
 }
 
@@ -223,7 +221,6 @@ THREEx.ArMarkerControls.prototype._initArtoolkit = function(){
 		arController.addEventListener('getMarker', function(event){
 			if( event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern' ){
 				if( artoolkitMarkerId === null )	return
-                                console.log('found marker', event.data.marker.idPatt, event)
 				if( event.data.marker.idPatt === artoolkitMarkerId ) onMarkerFound(event)
 			}else if( event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode' ){
 				// console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
@@ -238,7 +235,6 @@ THREEx.ArMarkerControls.prototype._initArtoolkit = function(){
                   if( _this.parameters.type === 'nft' ){
                     if( artoolkitMarkerId === null ) return
                     if( event.data.marker.id  === artoolkitMarkerId ) {
-                      console.log('found nft marker', event.data.marker.id, event)
                       onMarkerFound(event)
                     }
                   }
