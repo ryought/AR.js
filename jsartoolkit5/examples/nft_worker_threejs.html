@@ -23,17 +23,21 @@ html,body {
 
 <h1>NFT marker example with Three.js</h1>
 <p>On Chrome on Android, tap the screen to start playing video stream.</p>
+hoge 
 <p>Show  <a href="https://github.com/artoolkit/artoolkit5/blob/master/doc/Marker%20images/pinball.jpg">Pinball image</a> to camera to display a colorful object on top of it. Tap the screen to rotate the object.
 
 <p>&larr; <a href="index.html">Back to examples</a></p>
 
+<script src="../build/artoolkit.debug.js"></script>
 <script async src="../build/artoolkit.min.js"></script>
 <script async src="js/third_party/three.js/three.min.js"></script>
 <script async src="../js/artoolkit.three.js"></script>
+<script async src="js/third_party/stats.min.js"></script>
 
 <script src="../js/artoolkit.proxy.js"></script>
 
 <script>
+var stats;
 
 window.ARThreeOnLoad = function() {
 
@@ -74,6 +78,13 @@ window.ARThreeOnLoad = function() {
 		}
 
 		document.body.insertBefore(renderer.domElement, document.body.firstChild);
+        // set stats
+        // 左上に表示するようCSSを記述してbody直下に表示
+        stats = new Stats();
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.top = '0px';
+        stats.domElement.style.zIndex = 100;
+        document.body.appendChild(stats.domElement);
 
 		var rotationV = 0;
 		var rotationTarget = 0;
@@ -113,6 +124,7 @@ window.ARThreeOnLoad = function() {
 
 			arScene.renderOn(renderer);
 			requestAnimationFrame(tick);
+                        stats.update();
 		};
 
 		tick();
